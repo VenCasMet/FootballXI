@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+}
+
+.app-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+  color: #22c55e;
+}
+
+.header p {
+  margin-top: 6px;
+  color: #94a3b8;
+}
+
+.controls {
+  margin: 25px 0;
+}
+
+.controls select,
+.controls button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+}
+
+.controls select {
+  background: #334155;
+  color: white;
+}
+
+.controls button {
+  background: #22c55e;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.controls button:hover {
+  background: #16a34a;
+}
+
+.loading {
+  margin: 20px;
+  font-weight: 600;
+  color: #facc15;
+}
+
+/* Pitch */
+
+.pitch {
+  margin-top: 30px;
+  padding: 40px 20px;
+  background: linear-gradient(#166534, #14532d);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.player {
+  background: white;
+  color: #0f172a;
+  padding: 8px 14px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 90px;
+  transition: 0.2s ease;
+}
+
+.player:hover {
+  transform: scale(1.08);
+}
+
+.gk {
+  background: #facc15;
+}
