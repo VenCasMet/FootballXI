@@ -1,59 +1,209 @@
-# Frontend
+⚽ Project Overview
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+  VCM Football XI is a modern Angular-based frontend application that dynamically generates the optimal football squad based on a selected formation.
 
-## Development server
+  It connects to a FastAPI backend that analyzes FIFA 2017 player data and returns the best XI using weighted performance metrics.
 
-To start a local development server, run:
+  The frontend renders players visually on a football pitch layout and updates in real-time based on user interaction.
 
-```bash
-ng serve
-```
+🧠 What This Frontend Does
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+  Allows users to select formations (4-3-3, 4-4-2, 3-5-2, 4-2-3-1)
 
-## Code scaffolding
+  Sends formation to backend API
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+  Receives optimized squad response
 
-```bash
-ng generate component component-name
-```
+  Displays players visually on pitch
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+  Handles asynchronous rendering using Zone-less Angular
 
-```bash
-ng generate --help
-```
+🏗 Tech Stack
+  
+  Technology-----	Purpose
+  
+  Angular 17-----	Frontend Framework
+  
+  TypeScript-----	Strong typing
+  
+  Standalone----- Components	Modern Angular structure
+  
+  Zone-less------ Architecture	Manual change detection
+  
+  Vite----------	Fast build tool
+  
+  Vercel---------	Deployment
+  
+🌍 Live Deployment
 
-## Building
+Frontend (Vercel):
 
-To build the project run:
+    https://vcmfootballxi.vercel.app/
 
-```bash
-ng build
-```
+Backend (Render):
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+    https://predictionxi.onrender.com/
 
-## Running unit tests
+🧩 Architecture Overview
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+    User selects formation
+            ↓
+    Angular sends POST request
+            ↓
+    FastAPI backend processes FIFA 2017 data
+            ↓
+    Returns best XI squad
+            ↓
+    Angular renders players on pitch
 
-```bash
-ng test
-```
+🔌 API Integration
 
-## Running end-to-end tests
+  The frontend communicates with:
 
-For end-to-end (e2e) testing, run:
+  POST https://predictionxi.onrender.com/generate-team
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+  Request Body:
 
-## Additional Resources
+      {
+        "formation": "4-3-3"
+      }
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+  Response:
+
+      {
+        "goalkeeper": ["Player Name"],
+        "defenders": ["Player1", "Player2", "Player3", "Player4"],
+        "midfielders": ["Player1", "Player2", "Player3"],
+        "attackers": ["Player1", "Player2", "Player3"]
+      }
+
+⚙️ Environment Configuration
+
+📁 environment.ts (Development)
+
+    export const environment = {
+      apiUrl: 'http://127.0.0.1:8000'
+    };
+
+📁 environment.prod.ts (Production)
+
+    export const environment = {
+      apiUrl: 'https://predictionxi.onrender.com'
+    };
+
+
+Angular automatically switches based on build configuration.
+
+🖥 Running Locally
+
+1️⃣ Clone Repository
+
+    git clone <your-frontend-repo>
+    cd frontend
+
+2️⃣ Install Dependencies
+
+    npm install
+
+3️⃣ Start Development Server
+
+    ng serve
+
+
+Open:
+
+    http://localhost:4200
+
+4️⃣ IMPORTANT – Backend Must Be Running
+
+If using local backend:
+
+    cd backend
+    uvicorn main:app --reload
+
+
+Backend must be running at:
+
+    http://127.0.0.1:8000
+
+🏭 Production Build
+
+    ng build --configuration production
+
+
+Output directory:
+
+    dist/<project-name>/browser
+
+🚀 Deployment (Vercel)
+
+Build Command:
+
+    ng build --configuration production
+
+Output Directory:
+
+    dist/<project-name>/browser
+
+SPA Routing Fix (Important)
+
+Create vercel.json:
+
+    {
+      "routes": [
+        { "handle": "filesystem" },
+        { "src": "/.*", "dest": "/index.html" }
+      ]
+    }
+
+🧠 Zone-less Angular Implementation
+
+  This project uses Angular in zone-less mode.
+
+  That means:
+
+  Angular does NOT automatically detect async updates.
+
+  Manual change detection is required after HTTP responses.
+
+  Example:
+    
+    constructor(private cdr: ChangeDetectorRef) {}
+    
+    this.http.post(...).subscribe(response => {
+      this.team = response;
+      this.cdr.detectChanges();
+    });
+
+
+  This prevents stale UI rendering and ensures instant updates.
+
+
+
+🎯 Why This Project Matters
+
+  This is not just a UI project.
+
+  It demonstrates:
+
+  Full-stack integration
+
+  API consumption
+
+  Production deployment
+
+  Real-world debugging (CORS, zone-less)
+
+  Modern Angular architecture
+
+👨‍💻 Author
+
+  Built as a full-stack deployed application combining:
+
+Data analytics (FIFA 2017 dataset)
+
+Backend optimization logic
+
+Modern frontend visualization
